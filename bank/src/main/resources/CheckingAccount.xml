@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CheckingAccount>
+    <account id="1">
+        <checks>20</checks>
+    </account>
+    <account id="2">
+        <checks>30</checks>
+    </account>
+</CheckingAccount>

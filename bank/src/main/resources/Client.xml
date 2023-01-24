@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<client id="1">
+    <name>Alejo</name>
+    <surnname>Gomez</surnname>
+    <age>23</age>
+    <country>argentina</country>
+    <address>nicaragua st. 123</address>
+</client>
