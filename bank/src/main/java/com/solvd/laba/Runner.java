@@ -2,35 +2,35 @@ package com.solvd.laba;
 
 import com.solvd.laba.controller.*;
 import com.solvd.laba.models.*;
-import com.solvd.laba.service.AccountsMainService;
+import com.solvd.laba.service.CheckingAccountService;
+import com.solvd.laba.service.ClientsService;
 import com.solvd.laba.utils.ConnectionPool;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
 public class Runner {
+    private final static Logger LOGGER = LogManager.getLogger();
+
     public static void main(String[] args) throws SQLException {
         ConnectionPool.getInstance().getConnection();
 
+        //ClientsService cs = new ClientsService();
+        CheckingAccountService cas = new CheckingAccountService();
 
-        MySQLAccountsMainDAO accountsMainDAO = new MySQLAccountsMainDAO();
-        MySQLClientDAO clientDAO = new MySQLClientDAO();
-        MySQLCertificateDepositAccountDAO certificateDepositDAO = new MySQLCertificateDepositAccountDAO();
-        MySQLSavingAccountDAO savingDAO = new MySQLSavingAccountDAO();
-        MySQLCheckingAccountDAO checkingDAO = new MySQLCheckingAccountDAO();
-        MySQLBankBranchOfficeDAO officeDAO = new MySQLBankBranchOfficeDAO();
-        AccountsMainService as = new AccountsMainService();
+        CheckingAccount ca = new CheckingAccount(10, 2500);
+        CreditCard cc = new CreditCard(5000, 2000, "1/1/2031", 321, "Visa");
+        DebitCard dc = new DebitCard("18/11/2030", 321, "Visa");
+        cas.insert(ca, cc, dc);
+        LOGGER.info(cas.selectOne(1).toString());
+        MySQLCreditCardDAO ccdao = new MySQLCreditCardDAO();
+        LOGGER.info(ccdao.getCreditCardByCheckingAccountId(1)); //card not associating with account!! need help
+        LOGGER.info(ccdao.getById(1));
 
-        try {
-            Client c = new Client("alejo", "gomez", 23, "argentina", "st 123");
-            CertificateDepositAccount cd = new CertificateDepositAccount();
-            SavingAccount s = new SavingAccount();
-            CheckingAccount ch = new CheckingAccount(5);
-            BankBranchOffice office = new BankBranchOffice(1000, "st 123", "argentina");
-            AccountsMain am = new AccountsMain(c, cd, s, ch, 100000, office);
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        ConnectionPool.getInstance().close();
+
 
     }
 }

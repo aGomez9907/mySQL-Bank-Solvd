@@ -1,28 +1,38 @@
 package com.solvd.laba.models;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class CertificateDepositAccount {
     private int id;
     private Date startDate;
     private Date finishDate;
     private double interestRate;
+    private double balance;
 
     public CertificateDepositAccount() {
     }
 
-    public CertificateDepositAccount(Date startDate, Date finishDate, double interestRate) {
+    public CertificateDepositAccount(Date startDate, Date finishDate, double interestRate, double balance) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.interestRate = interestRate;
+        this.balance = balance;
     }
 
-    public CertificateDepositAccount(int id, Date startDate, Date finishDate, double interestRate) {
+    public CertificateDepositAccount(int id, Date startDate, Date finishDate, double interestRate, double balance) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.interestRate = interestRate;
+        this.balance = balance;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public int getId() {
@@ -64,6 +74,7 @@ public class CertificateDepositAccount {
                 ", startDate=" + startDate +
                 ", finishDate=" + finishDate +
                 ", interestRate=" + interestRate +
+                ", balance=" + balance +
                 '}';
     }
 }

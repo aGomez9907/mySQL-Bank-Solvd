@@ -1,30 +1,29 @@
 package com.solvd.laba.models;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 public class DebitCard {
     private int id;
-    private LocalDate expirationDate;
+    private String expirationDate;
     private int securityCode;
     private String provider;
-    private AccountsMain account;
+
 
     public DebitCard() {
     }
 
-    public DebitCard(int id, int limitInOneDue, int limitInDues, LocalDate expirationDate, int securityCode, String provider, AccountsMain account) {
+    public DebitCard(String expirationDate, int securityCode, String provider) {
+        this.expirationDate = expirationDate;
+        this.securityCode = securityCode;
+        this.provider = provider;
+    }
+
+    public DebitCard(int id, String expirationDate, int securityCode, String provider) {
         this.id = id;
         this.expirationDate = expirationDate;
         this.securityCode = securityCode;
         this.provider = provider;
-        this.account = account;
-    }
-
-    public DebitCard(int limitInOneDue, int limitInDues, LocalDate expirationDate, int securityCode, String provider, AccountsMain account) {
-        this.expirationDate = expirationDate;
-        this.securityCode = securityCode;
-        this.provider = provider;
-        this.account = account;
     }
 
     public int getId() {
@@ -36,11 +35,11 @@ public class DebitCard {
     }
 
 
-    public LocalDate getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -60,13 +59,6 @@ public class DebitCard {
         this.provider = provider;
     }
 
-    public AccountsMain getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountsMain account) {
-        this.account = account;
-    }
 
     @Override
     public String toString() {
@@ -75,7 +67,6 @@ public class DebitCard {
                 ", expirationDate=" + expirationDate +
                 ", securityCode=" + securityCode +
                 ", provider='" + provider + '\'' +
-                ", account=" + account +
                 '}';
     }
 }

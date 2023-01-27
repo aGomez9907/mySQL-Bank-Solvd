@@ -1,36 +1,36 @@
 package com.solvd.laba.models;
 
-import java.time.LocalDate;
+import java.sql.Date;
+
 
 public class CreditCard {
     private int id;
     private int limitInOneDue;
     private int limitInDues;
-    private LocalDate expirationDate;
+    private String expirationDate;
     private int securityCode;
     private String provider;
-    private AccountsMain account;
+
 
     public CreditCard() {
     }
 
-    public CreditCard(int id, int limitInOneDue, int limitInDues, LocalDate expirationDate, int securityCode, String provider, AccountsMain account) {
+    public CreditCard(int id, int limitInOneDue, int limitInDues, String expirationDate, int securityCode, String provider) {
         this.id = id;
         this.limitInOneDue = limitInOneDue;
         this.limitInDues = limitInDues;
         this.expirationDate = expirationDate;
         this.securityCode = securityCode;
         this.provider = provider;
-        this.account = account;
+
     }
 
-    public CreditCard(int limitInOneDue, int limitInDues, LocalDate expirationDate, int securityCode, String provider, AccountsMain account) {
+    public CreditCard(int limitInOneDue, int limitInDues, String expirationDate, int securityCode, String provider) {
         this.limitInOneDue = limitInOneDue;
         this.limitInDues = limitInDues;
         this.expirationDate = expirationDate;
         this.securityCode = securityCode;
         this.provider = provider;
-        this.account = account;
     }
 
     public int getId() {
@@ -57,11 +57,11 @@ public class CreditCard {
         this.limitInDues = limitInDues;
     }
 
-    public LocalDate getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
@@ -81,13 +81,6 @@ public class CreditCard {
         this.provider = provider;
     }
 
-    public AccountsMain getAccount() {
-        return account;
-    }
-
-    public void setAccount(AccountsMain account) {
-        this.account = account;
-    }
 
     @Override
     public String toString() {
@@ -98,7 +91,7 @@ public class CreditCard {
                 ", expirationDate=" + expirationDate +
                 ", securityCode=" + securityCode +
                 ", provider='" + provider + '\'' +
-                ", account=" + account +
                 '}';
     }
 }
+

@@ -4,16 +4,32 @@ public class SavingAccount {
     private int id;
     private int monthWithdrawals;
 
+    private double balance;
+
     public SavingAccount() {
     }
 
-    public SavingAccount(int id, int monthWithdrawals) {
+    public SavingAccount(int id, int monthWithdrawals, double balance) {
         this.id = id;
         this.monthWithdrawals = monthWithdrawals;
+        this.balance = balance;
+    }
+
+    public SavingAccount(int monthWithdrawals, double balance) {
+        this.monthWithdrawals = monthWithdrawals;
+        this.balance = balance;
     }
 
     public SavingAccount(int monthWithdrawals) {
         this.monthWithdrawals = monthWithdrawals;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public int getId() {
@@ -37,6 +53,7 @@ public class SavingAccount {
         return "SavingAccount{" +
                 "id=" + id +
                 ", monthWithdrawals=" + monthWithdrawals +
+                ", balance=" + balance +
                 '}';
     }
 }

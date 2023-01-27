@@ -16,6 +16,11 @@ public class ATM {
         this.office = office;
     }
 
+    public ATM(int id, double balance) {
+        this.id = id;
+        this.balance = balance;
+    }
+
     public ATM() {
     }
 
@@ -45,10 +50,6 @@ public class ATM {
 
     @Override
     public String toString() {
-        return "ATM{" +
-                "id=" + id +
-                ", balance=" + balance +
-                ", office=" + office +
-                '}';
+        return "ATM{" + "id=" + id + ", balance=" + balance + ", office=" + office + '}';
     }
 }

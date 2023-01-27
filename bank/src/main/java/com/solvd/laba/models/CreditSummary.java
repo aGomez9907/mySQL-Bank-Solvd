@@ -2,26 +2,23 @@ package com.solvd.laba.models;
 
 public class CreditSummary {
     private int id;
-    private Client client;
     private double salary;
-    private double patrimonyM;
+    private double patrimony;
     private boolean creditTaken;
 
     public CreditSummary() {
     }
 
-    public CreditSummary(int id, Client client, double salary, double patrimonyM, boolean creditTaken) {
+    public CreditSummary(int id, double salary, double patrimony, boolean creditTaken) {
         this.id = id;
-        this.client = client;
         this.salary = salary;
-        this.patrimonyM = patrimonyM;
+        this.patrimony = patrimony;
         this.creditTaken = creditTaken;
     }
 
-    public CreditSummary(Client client, double salary, double patrimonyM, boolean creditTaken) {
-        this.client = client;
+    public CreditSummary(double salary, double patrimony, boolean creditTaken) {
         this.salary = salary;
-        this.patrimonyM = patrimonyM;
+        this.patrimony = patrimony;
         this.creditTaken = creditTaken;
     }
 
@@ -33,13 +30,6 @@ public class CreditSummary {
         this.id = id;
     }
 
-    public Client getPerson() {
-        return client;
-    }
-
-    public void setPerson(Client client) {
-        this.client = client;
-    }
 
     public double getSalary() {
         return salary;
@@ -49,12 +39,12 @@ public class CreditSummary {
         this.salary = salary;
     }
 
-    public double getPatrimonyM() {
-        return patrimonyM;
+    public double getPatrimony() {
+        return patrimony;
     }
 
-    public void setPatrimonyM(double patrimonyM) {
-        this.patrimonyM = patrimonyM;
+    public void setPatrimony(double patrimony) {
+        this.patrimony = patrimony;
     }
 
     public boolean isCreditTaken() {
@@ -69,9 +59,8 @@ public class CreditSummary {
     public String toString() {
         return "CreditSummary{" +
                 "id=" + id +
-                ", client=" + client +
                 ", salary=" + salary +
-                ", patrimonyM=" + patrimonyM +
+                ", patrimony=" + patrimony +
                 ", creditTaken=" + creditTaken +
                 '}';
     }
