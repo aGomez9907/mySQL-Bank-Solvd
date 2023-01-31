@@ -1,9 +1,7 @@
 package com.solvd.laba.controller;
 
 import com.solvd.laba.dao.IClientDAO;
-import com.solvd.laba.models.ATM;
 import com.solvd.laba.models.Client;
-import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

@@ -2,7 +2,6 @@ package com.solvd.laba.controller;
 
 import com.solvd.laba.dao.IATMDAO;
 import com.solvd.laba.models.ATM;
-import com.solvd.laba.models.CertificateDepositAccount;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

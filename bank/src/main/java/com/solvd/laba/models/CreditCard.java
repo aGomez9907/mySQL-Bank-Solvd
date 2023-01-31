@@ -1,8 +1,5 @@
 package com.solvd.laba.models;
 
-import java.sql.Date;
-
-
 public class CreditCard {
     private int id;
     private int limitInOneDue;

@@ -1,9 +1,7 @@
 package com.solvd.laba.controller;
 
 import com.solvd.laba.dao.ICheckingAccountDAO;
-import com.solvd.laba.models.CertificateDepositAccount;
 import com.solvd.laba.models.CheckingAccount;
-import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

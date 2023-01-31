@@ -1,8 +1,22 @@
 package com.solvd.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+@XmlRootElement(name = "ATM")
 public class ATM {
+    @JsonProperty("ATM_ID")
+    @XmlElement(name = "ATM_ID")
     private int id;
+    @JsonProperty("BALANCE")
+    @XmlElement(name = "BALANCE")
     private double balance;
+    @JsonBackReference
+    @XmlElement(name = "OFFICE")
     private BankBranchOffice office;
 
     public ATM(double balance, BankBranchOffice office) {
@@ -28,6 +42,7 @@ public class ATM {
     public ATM() {
     }
 
+    @JsonProperty("ATM_ID")
     public int getId() {
         return id;
     }
@@ -36,6 +51,7 @@ public class ATM {
         this.id = id;
     }
 
+    @JsonProperty("BALANCE")
     public double getBalance() {
         return balance;
     }
@@ -44,6 +60,7 @@ public class ATM {
         this.balance = balance;
     }
 
+    @JsonProperty("OFFICE")
     public BankBranchOffice getOffice() {
         return office;
     }

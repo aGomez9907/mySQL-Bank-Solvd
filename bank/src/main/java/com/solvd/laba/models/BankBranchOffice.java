@@ -1,12 +1,31 @@
 package com.solvd.laba.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
+@XmlRootElement(name = "BANK_BRANCH_OFFICE")
 public class BankBranchOffice {
+    @JsonProperty("OFFICE_ID")
+    @XmlElement(name = "OFFICE_ID")
     private int id;
+    @JsonProperty("GENERAL_BALANCE")
+    @XmlElement(name = "GENERAL_BALANCE")
     private double generalBalance;
+    @JsonProperty("ADDRESS")
+    @XmlElement(name = "ADDRESS")
     private String address;
+    @JsonProperty("COUNTRY")
+    @XmlElement(name = "COUNTRY")
     private String country;
+
+    @JsonManagedReference
+    @XmlElementWrapper(name = "ATMS")
+    @XmlElement(name = "ATM")
     private ArrayList<ATM> atms;
 
 
@@ -27,6 +46,7 @@ public class BankBranchOffice {
         this.country = country;
     }
 
+    @JsonProperty("OFFICE_ID")
     public int getId() {
         return id;
     }
@@ -35,6 +55,7 @@ public class BankBranchOffice {
         this.id = id;
     }
 
+    @JsonProperty("ATMS")
     public ArrayList<ATM> getAtms() {
         return atms;
     }
@@ -43,7 +64,7 @@ public class BankBranchOffice {
         this.atms = atms;
     }
 
-
+    @JsonProperty("GENERAL_BALANCE")
     public double getGeneralBalance() {
         return generalBalance;
     }
@@ -52,6 +73,7 @@ public class BankBranchOffice {
         this.generalBalance = generalBalance;
     }
 
+    @JsonProperty("ADDRESS")
     public String getAddress() {
         return address;
     }
@@ -60,6 +82,7 @@ public class BankBranchOffice {
         this.address = address;
     }
 
+    @JsonProperty("COUNTRY")
     public String getCountry() {
         return country;
     }

@@ -1,12 +1,24 @@
 package com.solvd.laba.models;
 
-import java.sql.Date;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 
+@XmlRootElement(name = "DEBIT_CARD")
 public class DebitCard {
+    @JsonProperty("DEBIT_CARD_ID")
+    @XmlElement(name = "DEBIT_CARD_ID")
     private int id;
+    @JsonProperty("EXPIRATION_DATE")
+    @XmlElement(name = "EXPIRATION_DATE")
     private String expirationDate;
+    @JsonProperty("SECURITY_CODE")
+    @XmlElement(name = "SECURITY_CODE")
     private int securityCode;
+    @JsonProperty("PROVIDER")
+    @XmlElement(name = "PROVIDER")
     private String provider;
 
 
@@ -26,6 +38,7 @@ public class DebitCard {
         this.provider = provider;
     }
 
+    @JsonProperty("DEBIT_CARD_ID")
     public int getId() {
         return id;
     }
@@ -34,7 +47,7 @@ public class DebitCard {
         this.id = id;
     }
 
-
+    @JsonProperty("EXPIRATION_DATE")
     public String getExpirationDate() {
         return expirationDate;
     }
@@ -43,6 +56,7 @@ public class DebitCard {
         this.expirationDate = expirationDate;
     }
 
+    @JsonProperty("SECURITY_CODE")
     public int getSecurityCode() {
         return securityCode;
     }
@@ -51,6 +65,7 @@ public class DebitCard {
         this.securityCode = securityCode;
     }
 
+    @JsonProperty("PROVIDER")
     public String getProvider() {
         return provider;
     }
