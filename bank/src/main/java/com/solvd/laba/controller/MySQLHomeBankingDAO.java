@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String HOMEBANKING_BY_CLIENT_ID = "SELECT bank_solvd.HOMEBANKING.* FROM HOMEBANKING INNER JOIN bank_solvd.CLIENT ON HOMEBANKING.HOMEBANKING_ID = CLIENT.HOMEBANKING_ID WHERE CLIENT_ID = ?";
+    private final static String HOMEBANKING_BY_CLIENT_ID = "SELECT * FROM HOMEBANKING INNER JOIN bank_solvd.CLIENT ON HOMEBANKING.HOMEBANKING_ID = CLIENT.HOMEBANKING_ID WHERE CLIENT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.HOMEBANKING (USERNAME, PASSWORD) VALUES (?, ?)";
     final String UPDATE = "UPDATE bank_solvd.HOMEBANKING SET USERNAME = ?, PASSWORD = ? WHERE HOMEBANKING_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.HOMEBANKING WHERE HOMEBANKING_ID = ?";

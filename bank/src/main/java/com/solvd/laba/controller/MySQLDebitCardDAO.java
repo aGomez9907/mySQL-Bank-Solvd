@@ -12,7 +12,7 @@ import java.util.List;
 public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     private final static Logger LOGGER = LogManager.getLogger();
 
-    private final static String DEBIT_CARD_BY_CHECKING_ACCOUNT_ID = "SELECT bank_solvd.DEBIT_CARD.* FROM DEBIT_CARD INNER JOIN bank_solvd.CHECKING_ACCOUNT ON DEBIT_CARD.DEBIT_CARD_ID = CHECKING_ACCOUNT.DEBIT_CARD_ID WHERE CHECKING_ACCOUNT_ID = ?";
+    private final static String DEBIT_CARD_BY_CHECKING_ACCOUNT_ID = "SELECT * FROM DEBIT_CARD INNER JOIN bank_solvd.CHECKING_ACCOUNT ON DEBIT_CARD.DEBIT_CARD_ID = CHECKING_ACCOUNT.DEBIT_CARD_ID WHERE CHECKING_ACCOUNT_ID = ?";
     private final static String GET_DEBIT_CARD = "Select * from bank_solvd.DEBIT_CARD where DEBIT_CARD_ID=?";
     final String INSERT = "INSERT INTO bank_solvd.DEBIT_CARD (EXPIRATION_DATE, SECURITY_CODE, PROVIDER) VALUES (?, ?, ?)";
     final String UPDATE = "UPDATE bank_solvd.DEBIT_CARD SET EXPIRATION_DATE = ?, SECURITY_CODE = ?, PROVIDER = ? WHERE DEBIT_CARD_ID = ?";

@@ -1,5 +1,6 @@
 package com.solvd.laba.parser;
 
+import com.solvd.laba.models.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,6 +34,7 @@ public class Parser {
             throws IOException, XMLStreamException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         XMLEventReader reader = xmlInputFactory.createXMLEventReader(Files.newInputStream(path.toFile().toPath()));
+        Client c = new Client();
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();
             if (event.isStartElement()) {
@@ -40,11 +42,13 @@ public class Parser {
                 switch (element.getName().getLocalPart()) {
                     case "client":
                         Attribute id = element.getAttributeByName(new QName("id"));
+                        c.setId(Integer.parseInt(id.getValue()));
                         LOGGER.info("Staff id : {}", id.getValue());
                         break;
                     case "name":
                         event = reader.nextEvent();
                         if (event.isCharacters()) {
+                            c.setName(String.(event.asCharacters().getData());
                             LOGGER.info("Name : {}", event.asCharacters().getData());
                         }
                         break;

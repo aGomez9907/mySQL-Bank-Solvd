@@ -1,0 +1,16 @@
+{
+  "OFFICE_ID" : 1,
+  "GENERAL_BALANCE" : 50000.0,
+  "ADDRESS" : "St st. 123",
+  "COUNTRY" : "Argentina",
+  "ATMS" : [ {
+    "ATM_ID" : 1,
+    "BALANCE" : 5000.0
+  }, {
+    "ATM_ID" : 2,
+    "BALANCE" : 5000.0
+  }, {
+    "ATM_ID" : 3,
+    "BALANCE" : 5000.0
+  } ]
+}

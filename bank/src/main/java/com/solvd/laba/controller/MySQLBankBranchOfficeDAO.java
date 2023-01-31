@@ -12,7 +12,7 @@ import java.util.List;
 public class MySQLBankBranchOfficeDAO extends MySQLDAO implements IBankBranchOfficeDAO {
 
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String OFFICE_BY_CLIENT_ID = "SELECT bank_solvd.BANK_BRANCH_OFFICE.* FROM BANK_BRANCH_OFFICE INNER JOIN bank_solvd.CLIENT ON BANK_BRANCH_OFFICE.OFFICE_ID = CLIENT.OFFICE_ID WHERE CLIENT_ID = ?";
+    private final static String OFFICE_BY_CLIENT_ID = "SELECT * FROM BANK_BRANCH_OFFICE INNER JOIN bank_solvd.CLIENT ON BANK_BRANCH_OFFICE.OFFICE_ID = CLIENT.OFFICE_ID WHERE CLIENT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.BANK_BRANCH_OFFICE (GENERAL_BALANCE, COUNTRY, ADDRESS) VALUES (?, ?, ?)";
     final String UPDATE = "UPDATE bank_solvd.BANK_BRANCH_OFFICE SET GENERAL_BALANCE = ?, COUNTRY = ?, ADDRESS = ? WHERE OFFICE_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.BANK_BRANCH_OFFICE WHERE OFFICE_ID = ?";

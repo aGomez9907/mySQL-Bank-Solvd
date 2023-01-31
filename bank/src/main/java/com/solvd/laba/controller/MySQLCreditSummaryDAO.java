@@ -14,7 +14,7 @@ import java.util.List;
 public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO {
 
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String CREDIT_SUMMARY_BY_CLIENT_ID = "SELECT bank_solvd.CREDIT_SUMMARY.* FROM CREDIT_SUMMARY INNER JOIN bank_solvd.CLIENT ON CREDIT_SUMMARY.CREDIT_SUMMARY_ID = CLIENT.CREDIT_SUMMARY_ID WHERE CLIENT_ID = ?";
+    private final static String CREDIT_SUMMARY_BY_CLIENT_ID = "SELECT * FROM CREDIT_SUMMARY INNER JOIN bank_solvd.CLIENT ON CREDIT_SUMMARY.CREDIT_SUMMARY_ID = CLIENT.CREDIT_SUMMARY_ID WHERE CLIENT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.CREDIT_SUMMARY (SALARY, PATRIMONY, CREDIT_TAKEN) VALUES (?, ?, ?)";
     final String UPDATE = "UPDATE bank_solvd.CREDIT_SUMMARY SET SALARY = ?, PATRIMONY = ?, CREDIT_TAKEN = ? WHERE CREDIT_SUMMARY_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.CREDIT_SUMMARY WHERE CREDIT_SUMMARY_ID = ?";
