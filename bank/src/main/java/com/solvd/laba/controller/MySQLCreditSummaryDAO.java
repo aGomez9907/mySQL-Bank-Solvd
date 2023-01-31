@@ -7,10 +7,7 @@ import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,9 +28,9 @@ public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO
 
     public CreditSummary getCreditSummaryByClientId(int accountId) {
         CreditSummary c = null;
-        try {
-            PreparedStatement statement = conn.prepareStatement(
-                    CREDIT_SUMMARY_BY_CLIENT_ID);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(
+                CREDIT_SUMMARY_BY_CLIENT_ID)) {
             statement.setInt(1, accountId);
             ResultSet rs = statement.executeQuery();
 
@@ -52,12 +49,17 @@ public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO
 
     @Override
     public void insert(CreditSummary a) {
-        try {
-            PreparedStatement stat = conn.prepareStatement(INSERT);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setDouble(1, a.getSalary());
             stat.setDouble(2, a.getPatrimony());
             stat.setBoolean(3, a.isCreditTaken());
             stat.executeUpdate();
+            ResultSet rs = stat.getGeneratedKeys();
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+            }
+
             LOGGER.info("Credit summary created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -67,7 +69,9 @@ public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO
     @Override
     public void update(CreditSummary a) {
         LOGGER.info("Updating credit summary with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+            stat.setInt(4, a.getId());
             stat.setDouble(1, a.getSalary());
             stat.setDouble(2, a.getPatrimony());
             stat.setBoolean(3, a.isCreditTaken());
@@ -80,7 +84,8 @@ public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO
     @Override
     public void delete(CreditSummary a) {
         LOGGER.info("Deleting credit summary with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(DELETE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
             stat.setInt(1, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
@@ -91,7 +96,8 @@ public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO
     @Override
     public CreditSummary selectOne(int id) {
         CreditSummary c = new CreditSummary();
-        try (PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
             stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
@@ -109,8 +115,8 @@ public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO
     @Override
     public List<CreditSummary> selectAll() {
         ArrayList<CreditSummary> cs = new ArrayList<>();
-        try {
-            PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(SELECT_ALL)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 cs.add(new CreditSummary(rs.getInt("CREDIT_SUMMARY_ID"), rs.getDouble("SALARY"), rs.getDouble("PATRIMONY"), rs.getBoolean("CREDIT_TAKEN")));

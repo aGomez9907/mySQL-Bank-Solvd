@@ -16,6 +16,10 @@ public class ATM {
         this.office = office;
     }
 
+    public ATM(double balance) {
+        this.balance = balance;
+    }
+
     public ATM(int id, double balance) {
         this.id = id;
         this.balance = balance;

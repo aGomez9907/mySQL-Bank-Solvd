@@ -1,10 +1,14 @@
 package com.solvd.laba.models;
 
+import java.util.ArrayList;
+
 public class BankBranchOffice {
     private int id;
     private double generalBalance;
     private String address;
     private String country;
+    private ArrayList<ATM> atms;
+
 
     public BankBranchOffice() {
     }
@@ -31,6 +35,15 @@ public class BankBranchOffice {
         this.id = id;
     }
 
+    public ArrayList<ATM> getAtms() {
+        return atms;
+    }
+
+    public void setAtms(ArrayList<ATM> atms) {
+        this.atms = atms;
+    }
+
+
     public double getGeneralBalance() {
         return generalBalance;
     }
@@ -54,7 +67,7 @@ public class BankBranchOffice {
     public void setCountry(String country) {
         this.country = country;
     }
-    
+
     @Override
     public String toString() {
         return "BankBranchOffice{" +
@@ -62,7 +75,7 @@ public class BankBranchOffice {
                 ", generalBalance=" + generalBalance +
                 ", address='" + address + '\'' +
                 ", country='" + country + '\'' +
+                ", atms=" + atms +
                 '}';
     }
-
 }

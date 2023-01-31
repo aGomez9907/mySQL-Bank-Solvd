@@ -9,10 +9,7 @@ import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +32,8 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
 
     public DebitCard getById(int id) {
         DebitCard c = new DebitCard();
-        try (PreparedStatement ps = conn.prepareStatement(GET_DEBIT_CARD)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement ps = conn.prepareStatement(GET_DEBIT_CARD)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -54,9 +52,9 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     public DebitCard getDebitCardByCheckingAccountId(int checkingAccountId) {
 
         DebitCard c = null;
-        try {
-            PreparedStatement statement = conn.prepareStatement(
-                    DEBIT_CARD_BY_CHECKING_ACCOUNT_ID);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(
+                DEBIT_CARD_BY_CHECKING_ACCOUNT_ID)) {
             statement.setInt(1, checkingAccountId);
             ResultSet rs = statement.executeQuery();
             c = new DebitCard();
@@ -75,12 +73,16 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
 
     @Override
     public void insert(DebitCard a) {
-        try {
-            PreparedStatement stat = conn.prepareStatement(INSERT);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setString(1, a.getExpirationDate());
             stat.setInt(2, a.getSecurityCode());
             stat.setString(3, a.getProvider());
             stat.executeUpdate();
+            ResultSet rs = stat.getGeneratedKeys();
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+            }
             LOGGER.info("Debit card created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -90,7 +92,9 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     @Override
     public void update(DebitCard a) {
         LOGGER.info("Updating debit card with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+            stat.setInt(4, a.getId());
             stat.setString(1, a.getExpirationDate());
             stat.setInt(2, a.getSecurityCode());
             stat.setString(3, a.getProvider());
@@ -103,7 +107,8 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     @Override
     public void delete(DebitCard a) {
         LOGGER.info("Deleting debit card with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(DELETE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
             stat.setInt(1, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
@@ -114,7 +119,8 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     @Override
     public DebitCard selectOne(int id) {
         DebitCard c = new DebitCard();
-        try (PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
             stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
@@ -132,8 +138,8 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     @Override
     public List<DebitCard> selectAll() {
         ArrayList<DebitCard> dc = new ArrayList<>();
-        try {
-            PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(SELECT_ALL)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 dc.add(new DebitCard(rs.getInt("DEBIT_CARD_ID"), rs.getString("EXPIRATION_DATE"), rs.getInt("SECURITY_CODE"), rs.getString("PROVIDER")));

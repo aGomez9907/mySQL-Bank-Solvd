@@ -6,10 +6,7 @@ import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +28,8 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
 
     public CreditCard getById(int id) {
         CreditCard c = new CreditCard();
-        try (PreparedStatement ps = conn.prepareStatement(GET_CREDIT_CARD)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement ps = conn.prepareStatement(GET_CREDIT_CARD)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -51,9 +49,9 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
     public CreditCard getCreditCardByCheckingAccountId(int checkingAccountId) {
 
         CreditCard c = null;
-        try {
-            PreparedStatement statement = conn.prepareStatement(
-                    CREDIT_CARD_BY_CHECKING_ACCOUNT_ID);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(
+                CREDIT_CARD_BY_CHECKING_ACCOUNT_ID)) {
             statement.setInt(1, checkingAccountId);
             ResultSet rs = statement.executeQuery();
             c = new CreditCard();
@@ -74,14 +72,18 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
 
     @Override
     public void insert(CreditCard a) {
-        try {
-            PreparedStatement stat = conn.prepareStatement(INSERT);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setInt(1, a.getLimitInOneDue());
             stat.setInt(2, a.getLimitInDues());
             stat.setString(3, a.getExpirationDate());
             stat.setInt(4, a.getSecurityCode());
             stat.setString(5, a.getProvider());
             stat.executeUpdate();
+            ResultSet rs = stat.getGeneratedKeys();
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+            }
             LOGGER.info("Credit card created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -91,7 +93,9 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
     @Override
     public void update(CreditCard a) {
         LOGGER.info("Updating credit card with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+            stat.setInt(6, a.getId());
             stat.setInt(1, a.getLimitInOneDue());
             stat.setInt(2, a.getLimitInDues());
             stat.setString(3, a.getExpirationDate());
@@ -106,7 +110,8 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
     @Override
     public void delete(CreditCard a) {
         LOGGER.info("Deleting credit card with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(DELETE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
             stat.setInt(1, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
@@ -117,7 +122,8 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
     @Override
     public CreditCard selectOne(int id) {
         CreditCard c = new CreditCard();
-        try (PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
             stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
@@ -137,8 +143,8 @@ public class MySQLCreditCardDAO extends MySQLDAO implements ICreditCardDAO {
     @Override
     public List<CreditCard> selectAll() {
         ArrayList<CreditCard> cc = new ArrayList<>();
-        try {
-            PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(SELECT_ALL)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 cc.add(new CreditCard(rs.getInt("CREDIT_CARD_ID"), rs.getInt("LIMIT_IN_1_DUE"), rs.getInt("LIMIT_IN_DUES"), rs.getString("EXPIRATION_DATE"), rs.getInt("SECURITY_CODE"), rs.getString("PROVIDER")));

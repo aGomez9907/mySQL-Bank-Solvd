@@ -10,16 +10,14 @@ import java.sql.SQLException;
 
 public class CheckingAccountService {
     private MySQLCheckingAccountDAO checkingAccountDAO = new MySQLCheckingAccountDAO();
-    private MySQLCreditCardDAO creditCardDAO = new MySQLCreditCardDAO();
-    private MySQLDebitCardDAO debitCardDAO = new MySQLDebitCardDAO();
+    private MySQLCreditCardDAO creditCardDAO;
+    private MySQLDebitCardDAO debitCardDAO;
 
     public CheckingAccountService() throws SQLException {
+        this.creditCardDAO = new MySQLCreditCardDAO();
+        this.debitCardDAO = new MySQLDebitCardDAO();
     }
 
-    public CheckingAccountService(MySQLCreditCardDAO creditCardDAO, MySQLDebitCardDAO debitCardDAO) throws SQLException {
-        this.creditCardDAO = creditCardDAO;
-        this.debitCardDAO = debitCardDAO;
-    }
 
     public CheckingAccount selectOne(int checkingAccountId) {
         CheckingAccount checkingAccount = checkingAccountDAO.selectOne(checkingAccountId);
@@ -29,29 +27,22 @@ public class CheckingAccountService {
     }
 
 
-    public CheckingAccount insert(CheckingAccount checkingAccount, CreditCard creditCard, DebitCard debitCard) throws SQLException {
-        CheckingAccount checkingAccount1 = new CheckingAccount();
-        checkingAccount1.setChecks(checkingAccount.getChecks());
-        checkingAccount1.setBalance(checkingAccount.getBalance());
-        creditCardDAO.insert(creditCard);
-        checkingAccount1.setCreditCard(creditCard);
-        debitCardDAO.insert(debitCard);
-        checkingAccount1.setDebitCard(debitCard);
-
-        checkingAccountDAO.insert(checkingAccount1);
-        return checkingAccount;
+    public void insert(CheckingAccount checkingAccount) throws SQLException {
+        creditCardDAO.insert(checkingAccount.getCreditCard());
+        debitCardDAO.insert(checkingAccount.getDebitCard());
+        checkingAccountDAO.insert(checkingAccount);
     }
 
 
-    public void update(CheckingAccount checkingAccount, CreditCard creditCard, DebitCard debitCard) throws SQLException {
-        CheckingAccount checkingAccount1 = checkingAccountDAO.selectOne(checkingAccount.getId());
-        checkingAccount1.setCreditCard(creditCard);
-        creditCardDAO.insert(creditCard);
-        checkingAccount1.setDebitCard(debitCard);
-        debitCardDAO.insert(debitCard);
-        checkingAccount1.setChecks(checkingAccount.getChecks());
-        checkingAccount1.setBalance(checkingAccount.getBalance());
-        checkingAccountDAO.update(checkingAccount1);
+    public void update(CheckingAccount checkingAccount) throws SQLException {
+        creditCardDAO.update(checkingAccount.getCreditCard());
+        debitCardDAO.update(checkingAccount.getDebitCard());
+        checkingAccountDAO.update(checkingAccount);
+    }
+
+
+    public CheckingAccount getCheckingAccountByClientId(int id) {
+        return checkingAccountDAO.getCheckingAccountByClientId(id);
     }
 
 }

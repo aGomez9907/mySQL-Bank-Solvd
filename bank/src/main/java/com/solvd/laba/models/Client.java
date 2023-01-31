@@ -18,6 +18,14 @@ public class Client {
 
     }
 
+    public Client(String name, String surname, int age, String country, String address) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.country = country;
+        this.address = address;
+    }
+
     public Client(int id, String name, String surname, int age, String country, String address, BankBranchOffice office, CreditSummary creditSummary) {
         this.id = id;
         this.name = name;

@@ -6,10 +6,7 @@ import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +27,9 @@ public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
 
     public HomeBanking getHomeBankingByClientId(int accountId) {
         HomeBanking c = null;
-        try {
-            PreparedStatement statement = conn.prepareStatement(
-                    HOMEBANKING_BY_CLIENT_ID);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(
+                HOMEBANKING_BY_CLIENT_ID)) {
             statement.setInt(1, accountId);
             ResultSet rs = statement.executeQuery();
 
@@ -50,11 +47,15 @@ public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
 
     @Override
     public void insert(HomeBanking a) {
-        try {
-            PreparedStatement stat = conn.prepareStatement(INSERT);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setString(1, a.getUsername());
             stat.setString(2, a.getPassword());
             stat.executeUpdate();
+            ResultSet rs = stat.getGeneratedKeys();
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+            }
             LOGGER.info("Homebanking created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -64,7 +65,9 @@ public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
     @Override
     public void update(HomeBanking a) {
         LOGGER.info("Updating homebanking with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+            stat.setInt(3, a.getId());
             stat.setString(1, a.getUsername());
             stat.setString(2, a.getPassword());
             stat.executeUpdate();
@@ -76,7 +79,8 @@ public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
     @Override
     public void delete(HomeBanking a) {
         LOGGER.info("Deleting homebanking with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(DELETE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
             stat.setInt(1, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
@@ -87,7 +91,8 @@ public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
     @Override
     public HomeBanking selectOne(int id) {
         HomeBanking c = new HomeBanking();
-        try (PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
             stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
@@ -104,8 +109,8 @@ public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
     @Override
     public List<HomeBanking> selectAll() {
         ArrayList<HomeBanking> ca = new ArrayList<>();
-        try {
-            PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(SELECT_ALL)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 ca.add(new HomeBanking(rs.getInt("HOMEBANKING_ID"), rs.getString("USERNAME"), rs.getString("PASSWORD")));

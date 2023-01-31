@@ -9,6 +9,9 @@ public class MySQLDAO {
     protected Connection conn;
 
     public MySQLDAO() throws SQLException {
-        this.conn = ConnectionPool.getInstance().getConnection();
+    }
+
+    public static Connection getConnection() throws SQLException {
+        return ConnectionPool.getInstance().getConnection();
     }
 }

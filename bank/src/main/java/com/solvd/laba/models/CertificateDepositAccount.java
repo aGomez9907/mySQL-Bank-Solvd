@@ -4,22 +4,22 @@ import java.sql.Date;
 
 public class CertificateDepositAccount {
     private int id;
-    private Date startDate;
-    private Date finishDate;
+    private String startDate;
+    private String finishDate;
     private double interestRate;
     private double balance;
 
     public CertificateDepositAccount() {
     }
 
-    public CertificateDepositAccount(Date startDate, Date finishDate, double interestRate, double balance) {
+    public CertificateDepositAccount(String startDate, String finishDate, double interestRate, double balance) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.interestRate = interestRate;
         this.balance = balance;
     }
 
-    public CertificateDepositAccount(int id, Date startDate, Date finishDate, double interestRate, double balance) {
+    public CertificateDepositAccount(int id, String startDate, String finishDate, double interestRate, double balance) {
         this.id = id;
         this.startDate = startDate;
         this.finishDate = finishDate;
@@ -43,19 +43,19 @@ public class CertificateDepositAccount {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
+    public String getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(String finishDate) {
         this.finishDate = finishDate;
     }
 

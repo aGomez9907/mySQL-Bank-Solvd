@@ -7,10 +7,7 @@ import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,17 +27,17 @@ public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICert
 
     public CertificateDepositAccount getCertificateDepositAccountByClientId(int accountId) {
         CertificateDepositAccount c = null;
-        try {
-            PreparedStatement statement = conn.prepareStatement(
-                    CERTIFICATE_BY_CLIENT_ID);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(
+                CERTIFICATE_BY_CLIENT_ID)) {
             statement.setInt(1, accountId);
             ResultSet rs = statement.executeQuery();
 
             c = new CertificateDepositAccount();
             while (rs.next()) {
                 c.setId(rs.getInt("CERTIFICATE_DEPOSIT_ACCOUNT_ID"));
-                c.setStartDate(rs.getDate("START_DATE"));
-                c.setFinishDate(rs.getDate("FINISH_DATE"));
+                c.setStartDate(rs.getString("START_DATE"));
+                c.setFinishDate(rs.getString("FINISH_DATE"));
                 c.setInterestRate(rs.getDouble("INTEREST_RATE"));
                 c.setBalance(rs.getDouble("BALANCE"));
             }
@@ -52,13 +49,17 @@ public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICert
 
     @Override
     public void insert(CertificateDepositAccount a) {
-        try {
-            PreparedStatement stat = conn.prepareStatement(INSERT);
-            stat.setDate(1, a.getStartDate());
-            stat.setDate(2, a.getFinishDate());
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
+            stat.setString(1, a.getStartDate());
+            stat.setString(2, a.getFinishDate());
             stat.setDouble(3, a.getInterestRate());
             stat.setDouble(4, a.getBalance());
             stat.executeUpdate();
+            ResultSet rs = stat.getGeneratedKeys();
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+            }
             LOGGER.info("Certificate deposit account created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -68,11 +69,13 @@ public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICert
     @Override
     public void update(CertificateDepositAccount a) {
         LOGGER.info("Updating certificate deposit account with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(UPDATE)) {
-            stat.setDate(1, a.getStartDate());
-            stat.setDate(2, a.getFinishDate());
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+            stat.setString(1, a.getStartDate());
+            stat.setString(2, a.getFinishDate());
             stat.setDouble(3, a.getInterestRate());
             stat.setDouble(4, a.getBalance());
+            stat.setInt(5, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -82,7 +85,8 @@ public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICert
     @Override
     public void delete(CertificateDepositAccount a) {
         LOGGER.info("Deleting certificate deposit account with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(DELETE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
             stat.setInt(1, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
@@ -93,13 +97,14 @@ public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICert
     @Override
     public CertificateDepositAccount selectOne(int id) {
         CertificateDepositAccount c = new CertificateDepositAccount();
-        try (PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
             stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
                 c.setId(rs.getInt("CERTIFICATE_DEPOSIT_ACCOUNT_ID"));
-                c.setStartDate(rs.getDate("START_DATE"));
-                c.setFinishDate(rs.getDate("FINISH_DATE"));
+                c.setStartDate(rs.getString("START_DATE"));
+                c.setFinishDate(rs.getString("FINISH_DATE"));
                 c.setInterestRate(rs.getDouble("INTEREST_RATE"));
                 c.setBalance(rs.getDouble("BALANCE"));
             }
@@ -112,11 +117,11 @@ public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICert
     @Override
     public List<CertificateDepositAccount> selectAll() {
         ArrayList<CertificateDepositAccount> cda = new ArrayList<>();
-        try {
-            PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(SELECT_ALL)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                cda.add(new CertificateDepositAccount(rs.getInt("CERTIFICATE_DEPOSIT_ACCOUNT_ID"), rs.getDate("START_DATE"), rs.getDate("FINISH_DATE"), rs.getDouble("INTEREST_RATE"), rs.getDouble("BALANCE")));
+                cda.add(new CertificateDepositAccount(rs.getInt("CERTIFICATE_DEPOSIT_ACCOUNT_ID"), rs.getString("START_DATE"), rs.getString("FINISH_DATE"), rs.getDouble("INTEREST_RATE"), rs.getDouble("BALANCE")));
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

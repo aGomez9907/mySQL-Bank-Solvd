@@ -30,8 +30,8 @@ public class ConnectionPool implements AutoCloseable {
         String url = null;
         String username = null;
         String password = null;
-        String conn = "local";
-        switch (conn) {
+        String lOrR = (properties.getProperty("lOrR"));
+        switch (lOrR) {
             case "local":
                 url = "url";
                 username = "username";

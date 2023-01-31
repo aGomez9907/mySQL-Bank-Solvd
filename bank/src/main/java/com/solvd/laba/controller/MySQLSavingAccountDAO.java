@@ -7,10 +7,7 @@ import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +27,9 @@ public class MySQLSavingAccountDAO extends MySQLDAO implements ISavingAccountDAO
 
     public SavingAccount getSavingAccountByClientId(int accountId) {
         SavingAccount c = null;
-        try {
-            PreparedStatement statement = conn.prepareStatement(
-                    SAVING_BY_CLIENT_ID);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(
+                SAVING_BY_CLIENT_ID)) {
             statement.setInt(1, accountId);
             ResultSet rs = statement.executeQuery();
             c = new SavingAccount();
@@ -50,11 +47,15 @@ public class MySQLSavingAccountDAO extends MySQLDAO implements ISavingAccountDAO
 
     @Override
     public void insert(SavingAccount a) {
-        try {
-            PreparedStatement stat = conn.prepareStatement(INSERT);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setInt(1, a.getMonthWithdrawals());
             stat.setDouble(2, a.getBalance());
             stat.executeUpdate();
+            ResultSet rs = stat.getGeneratedKeys();
+            while (rs.next()) {
+                a.setId(rs.getInt(1));
+            }
             LOGGER.info("Saving account created.");
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -64,7 +65,9 @@ public class MySQLSavingAccountDAO extends MySQLDAO implements ISavingAccountDAO
     @Override
     public void update(SavingAccount a) {
         LOGGER.info("Updating saving account with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
+            stat.setInt(3, a.getId());
             stat.setInt(1, a.getMonthWithdrawals());
             stat.setDouble(2, a.getBalance());
             stat.executeUpdate();
@@ -76,7 +79,8 @@ public class MySQLSavingAccountDAO extends MySQLDAO implements ISavingAccountDAO
     @Override
     public void delete(SavingAccount a) {
         LOGGER.info("Deleting saving account with id " + a.getId() + ".");
-        try (PreparedStatement stat = conn.prepareStatement(DELETE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
             stat.setInt(1, a.getId());
             stat.executeUpdate();
         } catch (SQLException e) {
@@ -87,7 +91,8 @@ public class MySQLSavingAccountDAO extends MySQLDAO implements ISavingAccountDAO
     @Override
     public SavingAccount selectOne(int id) {
         SavingAccount c = new SavingAccount();
-        try (PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement stat = conn.prepareStatement(SELECT_ONE)) {
             stat.setInt(1, id);
             ResultSet rs = stat.executeQuery();
             while (rs.next()) {
@@ -104,8 +109,8 @@ public class MySQLSavingAccountDAO extends MySQLDAO implements ISavingAccountDAO
     @Override
     public List<SavingAccount> selectAll() {
         ArrayList<SavingAccount> sa = new ArrayList<>();
-        try {
-            PreparedStatement statement = conn.prepareStatement(SELECT_ALL);
+        try (Connection conn = MySQLDAO.getConnection()
+             ; PreparedStatement statement = conn.prepareStatement(SELECT_ALL)) {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 sa.add(new SavingAccount(rs.getInt("SAVING_ACCOUNT_ID"), rs.getInt("MONTH_WITHDRAWALS"), rs.getDouble("BALANCE")));
