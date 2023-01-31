@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class JSON {
     private static final Logger LOGGER = LogManager.getLogger();
-    private static final String FILE_PATH = "src/main/resources/json/Office.json";
+    private static final String PATH = "src/main/resources/json/Office.json";
 
 
     public static void main(String[] args) throws IOException {
@@ -32,8 +32,8 @@ public class JSON {
         office.setAtms(atms);
 
 
-        marshall(mapper, office, FILE_PATH);
-        unmarshall(mapper, BankBranchOffice.class, FILE_PATH);
+        marshall(mapper, office, PATH);
+        unmarshall(mapper, BankBranchOffice.class, PATH);
 
     }
 
