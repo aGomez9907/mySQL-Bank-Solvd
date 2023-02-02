@@ -1,4 +1,4 @@
-package com.solvd.laba.utils;
+package com.solvd.laba.utils.json;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;

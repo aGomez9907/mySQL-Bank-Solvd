@@ -48,7 +48,7 @@ public class Parser {
                     case "name":
                         event = reader.nextEvent();
                         if (event.isCharacters()) {
-                            c.setName(String.(event.asCharacters().getData());
+                            //c.setName(String.(event.asCharacters().getData());
                             LOGGER.info("Name : {}", event.asCharacters().getData());
                         }
                         break;
