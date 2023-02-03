@@ -45,9 +45,9 @@ public class MyBatisDebitCardService {
             try {
                 debitCardDAO.insert(dc);
                 session.commit();
-                LOGGER.info("Customer added successfully");
+                LOGGER.info("Debit card added successfully");
             } catch (Exception e) {
-                LOGGER.info("Error creating customer");
+                LOGGER.info("Error creating debit card");
                 session.rollback();
                 LOGGER.info("Session rollback");
             }
