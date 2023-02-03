@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
+<mapper namespace="src/main/java/com/solvd/laba/controller/MySQLDebitCardDAO.java">
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="DEBIT_CARD_ID">
+        INSERT INTO bank_solvd.DEBIT_CARD (EXPIRATION_DATE, SECURITY_CODE, PROVIDER)
+        VALUES (#{expiration_date}, #{security_code}, #{provider})
+    </insert>
+
+    <select id="getById" resultMap="debitCardResultMap">
+        Select *
+        from bank_solvd.DEBIT_CARD
+        where DEBIT_CARD_ID = #{id}
+    </select>
+
+    <select id="selectOne" resultMap="debitCardResultMap">
+        SELECT *
+        FROM bank_solvd.DEBIT_CARD
+    </select>
+
+    <resultMap id="userResultMap" type="com.solvd.laba.models.DebitCard" autoMapping="false">
+        <id column="DEBIT_CARD_ID" property="id"/>
+        <result column="EXPIRATION_DATE" property="expiration_date"/>
+        <result column="SECURITY_CODE" property="security_code"/>
+        <result column="PROVIDER" property="provider"/>
+    </resultMap>
+
+</mapper>
