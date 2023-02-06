@@ -3,28 +3,30 @@ package com.solvd.laba.models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
-@XmlRootElement(name = "BANK_BRANCH_OFFICE")
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Bank_Branch_Office")
+
 public class BankBranchOffice {
-    @JsonProperty("OFFICE_ID")
-    // @XmlAttribute(name = "OFFICE_ID")
+    @JsonProperty("Office_Id")
+
 
     private int id;
-    @JsonProperty("GENERAL_BALANCE")
-    //@XmlElement(name = "GENERAL_BALANCE")
+    @JsonProperty("General_Balance")
+
     private double generalBalance;
-    @JsonProperty("ADDRESS")
-    //@XmlElement(name = "ADDRESS")
+    @JsonProperty("Address")
+
     private String address;
-    @JsonProperty("COUNTRY")
-    //@XmlElement(name = "COUNTRY")
+    @JsonProperty("Country")
+
     private String country;
 
     @JsonManagedReference
-    //@XmlElementWrapper(name = "ATMS")
 
     private ArrayList<ATM> atms;
 
@@ -46,8 +48,8 @@ public class BankBranchOffice {
         this.country = country;
     }
 
-    @JsonProperty("OFFICE_ID")
-    @XmlAttribute(name = "OFFICE_ID")
+    @JsonProperty("Office_Id")
+    @XmlAttribute(name = "Office_Id")
     public int getId() {
         return id;
     }
@@ -56,9 +58,9 @@ public class BankBranchOffice {
         this.id = id;
     }
 
-    @JsonProperty("ATMS")
-    @XmlElementWrapper(name = "ATMS")
-    @XmlElement(name = "ATM")
+    @JsonProperty("Atms")
+    @XmlElementWrapper(name = "Atms")
+    @XmlElement(name = "Atm")
     public ArrayList<ATM> getAtms() {
         return atms;
     }
@@ -67,8 +69,8 @@ public class BankBranchOffice {
         this.atms = atms;
     }
 
-    @JsonProperty("GENERAL_BALANCE")
-    @XmlElement(name = "GENERAL_BALANCE")
+    @JsonProperty("General_Balance")
+    @XmlElement(name = "General_Balance")
     public double getGeneralBalance() {
         return generalBalance;
     }
@@ -77,8 +79,8 @@ public class BankBranchOffice {
         this.generalBalance = generalBalance;
     }
 
-    @JsonProperty("ADDRESS")
-    @XmlElement(name = "ADDRESS")
+    @JsonProperty("Address")
+    @XmlElement(name = "Address")
     public String getAddress() {
         return address;
     }
@@ -87,8 +89,8 @@ public class BankBranchOffice {
         this.address = address;
     }
 
-    @JsonProperty("COUNTRY")
-    @XmlElement(name = "COUNTRY")
+    @JsonProperty("Country")
+    @XmlElement(name = "Country")
     public String getCountry() {
         return country;
     }
@@ -99,12 +101,6 @@ public class BankBranchOffice {
 
     @Override
     public String toString() {
-        return "BankBranchOffice{" +
-                "id=" + id +
-                ", generalBalance=" + generalBalance +
-                ", address='" + address + '\'' +
-                ", country='" + country + '\'' +
-                ", atms=" + atms +
-                '}';
+        return "BankBranchOffice{" + "id=" + id + ", generalBalance=" + generalBalance + ", address='" + address + '\'' + ", country='" + country + '\'' + ", atms=" + atms + '}';
     }
 }

@@ -2,19 +2,18 @@ package com.solvd.laba.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.xml.txw2.annotation.XmlNamespace;
 
 import javax.xml.bind.annotation.*;
 
 
-@XmlRootElement(name = "ATM")
+@XmlRootElement(name = "Atm")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ATM {
-    @JsonProperty("ATM_ID")
-    @XmlAttribute(name = "ATM_ID")
+    @JsonProperty("Atm_Id")
+    @XmlAttribute(name = "Atm_Id")
     private int id;
-    @JsonProperty("BALANCE")
-    @XmlElement(name = "BALANCE")
+    @JsonProperty("Balance")
+    @XmlElement(name = "Balance")
     private double balance;
     @JsonBackReference
     @XmlTransient
@@ -43,7 +42,7 @@ public class ATM {
     public ATM() {
     }
 
-    @JsonProperty("ATM_ID")
+    @JsonProperty("Atm_Id")
     public int getId() {
         return id;
     }
@@ -52,7 +51,7 @@ public class ATM {
         this.id = id;
     }
 
-    @JsonProperty("BALANCE")
+    @JsonProperty("Balance")
     public double getBalance() {
         return balance;
     }
@@ -61,7 +60,7 @@ public class ATM {
         this.balance = balance;
     }
 
-    @JsonProperty("OFFICE")
+    @JsonProperty("Office")
     @XmlTransient
     public BankBranchOffice getOffice() {
         return office;

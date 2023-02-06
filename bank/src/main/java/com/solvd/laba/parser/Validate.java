@@ -23,8 +23,8 @@ public class Validate {
 
     public static void main(String[] args) {
         try {
-            String xsd = "./src/main/resources/Client.xsd";
-            String xml = "./src/main/resources/Client.xml";
+            String xsd = "./src/main/resources/xsd/Client.xsd";
+            String xml = "./src/main/resources/xml/Client.xml";
             boolean isValid = validate(xsd, xml);
             LOGGER.info(String.format("XML file is %s", (isValid ? "valid." : "invalid.")));
         } catch (Exception e) {

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Checking_Account>
-    <Account id="1">
-        <Checks>20</Checks>
-    </Account>
-    <Account id="2">
-        <Checks>30</Checks>
-    </Account>
-</Checking_Account>

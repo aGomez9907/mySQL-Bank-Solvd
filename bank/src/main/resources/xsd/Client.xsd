@@ -1,13 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
-    <xs:element name="client">
+    <xs:element name="Client">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
-                <xs:element name="surname" type="xs:string"/>
-                <xs:element name="age" type="xs:int"/>
-                <xs:element name="country" type="xs:string"/>
-                <xs:element name="address" type="xs:string"/>
+                <xs:element name="Name" type="xs:string"/>
+                <xs:element name="Surname" type="xs:string"/>
+                <xs:element name="Age" type="xs:int"/>
+                <xs:element name="Country" type="xs:string"/>
+                <xs:element name="Address" type="xs:string"/>
+
+                <xs:element name="Bank_Branch_Office">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Address" type="xs:string"/>
+                            <xs:element name="Country" type="xs:string"/>
+                            <xs:element name="General_Balance" type="xs:double"/>
+
+                            <xs:element name="Atms">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Atm" maxOccurs="unbounded">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Balance" type="xs:double"/>
+                                                </xs:sequence>
+                                                <xs:attribute name="id" type="xs:int"/>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+
+
+                <xs:element name="Certificate_Deposit_Account">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Start_Date" type="xs:string"/>
+                            <xs:element name="Finish_Date" type="xs:string"/>
+                            <xs:element name="Interest_Rate" type="xs:double"/>
+                            <xs:element name="Balance" type="xs:double"/>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+
+
+                <xs:element name="Checking_Account">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Checks" type="xs:int"/>
+
+                            <xs:element name="Debit_Card">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Expiration_Date" type="xs:string"/>
+                                        <xs:element name="Security_Code" type="xs:int"/>
+                                        <xs:element name="Provider" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+
+                            <xs:element name="Credit_Card">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Limit_In_One_Due" type="xs:double"/>
+                                        <xs:element name="Limit_In_Dues" type="xs:double"/>
+                                        <xs:element name="Expiration_Date" type="xs:string"/>
+                                        <xs:element name="Security_Code" type="xs:int"/>
+                                        <xs:element name="Provider" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:int"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Credit_Summary">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Salary" type="xs:double"/>
+                            <xs:element name="Patrimony" type="xs:double"/>
+                            <xs:element name="Credit_Taken" type="xs:boolean"/>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Saving_Account">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Month_Withdrawals" type="xs:int"/>
+                            <xs:element name="Balance" type="xs:double"/>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Home_Banking">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Username" type="xs:string"/>
+                            <xs:element name="Password" type="xs:string"/>
+                        </xs:sequence>
+                        <xs:attribute name="id" type="xs:int"/>
+                    </xs:complexType>
+                </xs:element>
+
             </xs:sequence>
             <xs:attribute name="id" type="xs:int"/>
         </xs:complexType>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<Bank_Branch_Office OFFICE_ID="1">
+<Bank_Branch_Office id="1">
     <Address>nicora st. 123</Address>
     <Country>argentina</Country>
     <General_Balance>12345</General_Balance>

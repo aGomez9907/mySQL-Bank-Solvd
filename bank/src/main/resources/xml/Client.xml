@@ -1,8 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Client id="1">
     <Name>Alejo</Name>
+
     <Surname>Gomez</Surname>
+
     <Age>23</Age>
+
     <Country>argentina</Country>
+
     <Address>nicaragua st. 123</Address>
+
+    <Bank_Branch_Office id="1">
+        <Address>nicora st. 123</Address>
+        <Country>argentina</Country>
+        <General_Balance>12345</General_Balance>
+        <Atms>
+            <Atm id="1">
+                <Balance>11111</Balance>
+            </Atm>
+            <Atm id="2">
+                <Balance>22222</Balance>
+            </Atm>
+            <Atm id="3">
+                <Balance>333333</Balance>
+            </Atm>
+        </Atms>
+    </Bank_Branch_Office>
+
+    <Certificate_Deposit_Account id="1">
+        <Start_Date>10/10/2022</Start_Date>
+        <Finish_Date>11/11/2023</Finish_Date>
+        <Interest_Rate>0.1</Interest_Rate>
+        <Balance>30000</Balance>
+    </Certificate_Deposit_Account>
+
+    <Checking_Account id="1">
+        <Checks>20</Checks>
+        <Debit_Card id="1">
+            <Expiration_Date>2/2/2030</Expiration_Date>
+            <Security_Code>123</Security_Code>
+            <Provider>Visa</Provider>
+        </Debit_Card>
+        <Credit_Card id="1">
+            <Limit_In_One_Due>20000</Limit_In_One_Due>
+            <Limit_In_Dues>10000</Limit_In_Dues>
+            <Expiration_Date>3/3/2032</Expiration_Date>
+            <Security_Code>223</Security_Code>
+            <Provider>Mastercard</Provider>
+        </Credit_Card>
+    </Checking_Account>
+
+    <Credit_Summary id="1">
+        <Salary>6000</Salary>
+        <Patrimony>950000</Patrimony>
+        <Credit_Taken>1</Credit_Taken>
+    </Credit_Summary>
+
+    <Saving_Account id="1">
+        <Month_Withdrawals>6</Month_Withdrawals>
+        <Balance>10000</Balance>
+    </Saving_Account>
+
+    <Home_Banking id="1">
+        <Username>aGomez</Username>
+        <Password>pepino123</Password>
+    </Home_Banking>
 </Client>

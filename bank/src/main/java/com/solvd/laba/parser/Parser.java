@@ -1,6 +1,7 @@
 package com.solvd.laba.parser;
 
 import com.solvd.laba.models.Client;
+import com.solvd.laba.models.CreditSummary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +19,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Parser {
-    public static final String PATH = "../bank/src/main/resources/Client.xml";
+    public static final String PATH = "../bank/src/main/resources/xml/CreditSummary.xml";
     private final static Logger LOGGER = LogManager.getLogger(Parser.class);
 
 
@@ -30,62 +31,54 @@ public class Parser {
         }
     }
 
-    private static void print(Path path)
+    private static CreditSummary print(Path path)
             throws IOException, XMLStreamException {
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         XMLEventReader reader = xmlInputFactory.createXMLEventReader(Files.newInputStream(path.toFile().toPath()));
-        Client c = new Client();
+        CreditSummary c = new CreditSummary();
         while (reader.hasNext()) {
             XMLEvent event = reader.nextEvent();
             if (event.isStartElement()) {
                 StartElement element = event.asStartElement();
                 switch (element.getName().getLocalPart()) {
-                    case "client":
+                    case "Credit_Summary":
                         Attribute id = element.getAttributeByName(new QName("id"));
                         c.setId(Integer.parseInt(id.getValue()));
-                        LOGGER.info("Staff id : {}", id.getValue());
+                        LOGGER.info("Credit_Summary id : {}", id.getValue());
                         break;
-                    case "name":
+                    case "Salary":
                         event = reader.nextEvent();
                         if (event.isCharacters()) {
-                            //c.setName(String.(event.asCharacters().getData());
-                            LOGGER.info("Name : {}", event.asCharacters().getData());
+                            LOGGER.info("Salary : {}", event.asCharacters().getData());
+                            c.setSalary(Double.parseDouble(event.asCharacters().getData()));
                         }
                         break;
-                    case "surname":
+                    case "Patrimony":
                         event = reader.nextEvent();
                         if (event.isCharacters()) {
-                            LOGGER.info("Surame : {}", event.asCharacters().getData());
+                            LOGGER.info("Patrimony : {}", event.asCharacters().getData());
+                            c.setPatrimony(Double.parseDouble(event.asCharacters().getData()));
                         }
                         break;
-                    case "age":
+                    case "Credit_Taken":
                         event = reader.nextEvent();
                         if (event.isCharacters()) {
-                            LOGGER.info("Age : {}", event.asCharacters().getData());
-                        }
-                        break;
-                    case "country":
-                        event = reader.nextEvent();
-                        if (event.isCharacters()) {
-                            LOGGER.info("country : {}", event.asCharacters().getData());
-                        }
-                        break;
-                    case "address":
-                        event = reader.nextEvent();
-                        if (event.isCharacters()) {
-                            LOGGER.info("address : {}", event.asCharacters().getData());
+                            LOGGER.info("Credit_Taken : {}", event.asCharacters().getData());
+                            c.setCreditTaken(Boolean.parseBoolean(event.asCharacters().getData()));
                         }
                         break;
                 }
             }
             if (event.isEndElement()) {
                 EndElement endElement = event.asEndElement();
-                if (endElement.getName().getLocalPart().equals("client")) {
+                if (endElement.getName().getLocalPart().equals("Credit_Summary")) {
                     LOGGER.info("{}", "---");
                 }
             }
 
+
         }
+        return c;
 
     }
 
