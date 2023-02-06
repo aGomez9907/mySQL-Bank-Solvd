@@ -10,14 +10,14 @@
                 <property name="defaultReadOnly" value="false"/>
             </transactionManager>
             <dataSource type="POOLED">
-                <property name="driver" value="${db.driver}"/>
-                <property name="url" value="${db.url}"/>
-                <property name="username" value="${db.username}"/>
-                <property name="password" value="${db.password}"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${remoteurl}"/>
+                <property name="username" value="${remoteusername}"/>
+                <property name="password" value="${remotepassword}"/>
             </dataSource>
         </environment>
     </environments>
     <mappers>
-        <mapper resource="bank/src/main/resources/mappers/DebitCardMapper.xml"/>
+        <mapper resource="mappers/DebitCardMapper.xml"/>
     </mappers>
 </configuration>

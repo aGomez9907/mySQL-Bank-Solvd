@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.laba.dao.ICreditCardDAO">
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bank_solvd.CHECKING_ACCOUNT (CHECKS, BALANCE, CREDIT_CARD_ID, DEBIT_CARD_ID)
+        VALUES (#{checks}, #{balance}, #{creditCardId}, #{debitCardId}, #{provider})
+    </insert>
+
+
+    <select id="getCheckingAccountByClientId" resultMap="checkingAccountResultMap">
+        SELECT *
+        FROM bank_solvd.CHECKING_ACCOUNT
+        INNER JOIN bank_solvd.CLIENT
+        ON CHECKING_ACCOUNT.CHECKING_ACCOUNT_ID = CLIENT.CHECKING_ACCOUNT_ID
+        WHERE CLIENT_ID = #{id}
+    </select>
+
+
+    <select id="selectOne" resultMap="checkingAccountResultMap">
+        SELECT *
+        FROM bank_solvd.CHECKING_ACCOUNT
+        WHERE CHECKING_ACCOUNT_ID = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="checkingAccountResultMap">
+        SELECT *
+        FROM bank_solvd.CHECKING_ACCOUNT
+    </select>
+
+    <update id="update" parameterType="com.solvd.laba.models.CheckingAccount">
+        UPDATE bank_solvd.CHECKING_ACCOUNT
+        SET CHECKS = #{checks}, BALANCE = #{balance}, CREDIT_CARD_ID = #{creditCardId}, DEBIT_CARD_ID = #{debitCardId}
+        WHERE CHECKING_ACCOUNT_ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM bank_solvd.CHECKING_ACCOUNT
+        WHERE CHECKING_ACCOUNT_ID = #{id}
+    </delete>
+
+    <resultMap id="checkingAccountResultMap" type="com.solvd.laba.models.CheckingAccount" autoMapping="false">
+        <id column="CHECKING_ACCOUNT_ID" property="id"/>
+        <result column="CHECKS" property="checks"/>
+        <result column="BALANCE" property="balance"/>
+        <result column="CREDIT_CARD_ID" property="creditCardId"/>
+        <result column="DEBIT_CARD_ID" property="debitCardId"/>
+    </resultMap>
+
+</mapper>

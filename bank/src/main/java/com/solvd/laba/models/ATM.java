@@ -73,6 +73,6 @@ public class ATM {
 
     @Override
     public String toString() {
-        return "ATM{" + "id=" + id + ", balance=" + balance + ", office=" + office + '}';
+        return "ATM{" + "id=" + id + ", balance=" + balance + '}';
     }
 }

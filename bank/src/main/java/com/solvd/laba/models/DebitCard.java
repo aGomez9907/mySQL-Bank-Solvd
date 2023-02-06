@@ -80,7 +80,7 @@ public class DebitCard {
 
     @Override
     public String toString() {
-        return "CreditCard{" +
+        return "DebitCard{" +
                 "id=" + id +
                 ", expirationDate=" + expirationDate +
                 ", securityCode=" + securityCode +

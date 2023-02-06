@@ -12,8 +12,7 @@ import java.util.List;
 public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     private final static Logger LOGGER = LogManager.getLogger();
 
-    private final static String DEBIT_CARD_BY_CHECKING_ACCOUNT_ID = "SELECT * FROM DEBIT_CARD INNER JOIN bank_solvd.CHECKING_ACCOUNT ON DEBIT_CARD.DEBIT_CARD_ID = CHECKING_ACCOUNT.DEBIT_CARD_ID WHERE CHECKING_ACCOUNT_ID = ?";
-    private final static String GET_DEBIT_CARD = "Select * from bank_solvd.DEBIT_CARD where DEBIT_CARD_ID=?";
+    private final static String DEBIT_CARD_BY_CHECKING_ACCOUNT_ID = "SELECT * FROM bank_solvd.DEBIT_CARD INNER JOIN bank_solvd.CHECKING_ACCOUNT ON DEBIT_CARD.DEBIT_CARD_ID = CHECKING_ACCOUNT.DEBIT_CARD_ID WHERE CHECKING_ACCOUNT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.DEBIT_CARD (EXPIRATION_DATE, SECURITY_CODE, PROVIDER) VALUES (?, ?, ?)";
     final String UPDATE = "UPDATE bank_solvd.DEBIT_CARD SET EXPIRATION_DATE = ?, SECURITY_CODE = ?, PROVIDER = ? WHERE DEBIT_CARD_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.DEBIT_CARD WHERE DEBIT_CARD_ID = ?";
@@ -23,25 +22,6 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
 
     public MySQLDebitCardDAO() throws SQLException {
 
-    }
-
-
-    public DebitCard getById(int id) {
-        DebitCard c = new DebitCard();
-        try (Connection conn = MySQLDAO.getConnection()
-             ; PreparedStatement ps = conn.prepareStatement(GET_DEBIT_CARD)) {
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                c.setId(rs.getInt("DEBIT_CARD_ID"));
-                c.setExpirationDate(rs.getString("EXPIRATION_DATE"));
-                c.setSecurityCode(rs.getInt("SECURITY_CODE"));
-                c.setProvider(rs.getString("PROVIDER"));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return c;
     }
 
 

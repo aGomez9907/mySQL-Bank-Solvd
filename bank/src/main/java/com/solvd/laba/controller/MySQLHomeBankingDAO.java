@@ -2,7 +2,6 @@ package com.solvd.laba.controller;
 
 import com.solvd.laba.dao.IHomeBankingDAO;
 import com.solvd.laba.models.HomeBanking;
-import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class MySQLHomeBankingDAO extends MySQLDAO implements IHomeBankingDAO {
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String HOMEBANKING_BY_CLIENT_ID = "SELECT * FROM HOMEBANKING INNER JOIN bank_solvd.CLIENT ON HOMEBANKING.HOMEBANKING_ID = CLIENT.HOMEBANKING_ID WHERE CLIENT_ID = ?";
+    private final static String HOMEBANKING_BY_CLIENT_ID = "SELECT * FROM bank_solvd.HOMEBANKING INNER JOIN bank_solvd.CLIENT ON HOMEBANKING.HOMEBANKING_ID = CLIENT.HOMEBANKING_ID WHERE CLIENT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.HOMEBANKING (USERNAME, PASSWORD) VALUES (?, ?)";
     final String UPDATE = "UPDATE bank_solvd.HOMEBANKING SET USERNAME = ?, PASSWORD = ? WHERE HOMEBANKING_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.HOMEBANKING WHERE HOMEBANKING_ID = ?";

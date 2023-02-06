@@ -1,29 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
-<mapper namespace="src/main/java/com/solvd/laba/controller/MySQLDebitCardDAO.java">
+<mapper namespace="com.solvd.laba.dao.IDebitCardDAO">
 
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="DEBIT_CARD_ID">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO bank_solvd.DEBIT_CARD (EXPIRATION_DATE, SECURITY_CODE, PROVIDER)
-        VALUES (#{expiration_date}, #{security_code}, #{provider})
+        VALUES (#{expirationDate}, #{securityCode}, #{provider})
     </insert>
 
-    <select id="getById" resultMap="debitCardResultMap">
-        Select *
-        from bank_solvd.DEBIT_CARD
-        where DEBIT_CARD_ID = #{id}
+
+    <select id="getDebitCardByCheckingAccountId" resultMap="debitCardResultMap">
+        SELECT *
+        FROM bank_solvd.DEBIT_CARD
+        INNER JOIN bank_solvd.CHECKING_ACCOUNT
+        ON DEBIT_CARD.DEBIT_CARD_ID = CHECKING_ACCOUNT.DEBIT_CARD_ID WHERE
+        CHECKING_ACCOUNT_ID = #{id}
     </select>
+
 
     <select id="selectOne" resultMap="debitCardResultMap">
         SELECT *
         FROM bank_solvd.DEBIT_CARD
+        WHERE DEBIT_CARD_ID = #{id}
     </select>
 
-    <resultMap id="userResultMap" type="com.solvd.laba.models.DebitCard" autoMapping="false">
+    <select id="selectAll" resultMap="debitCardResultMap">
+        SELECT *
+        FROM bank_solvd.DEBIT_CARD
+    </select>
+
+    <update id="update" parameterType="com.solvd.laba.models.DebitCard">
+        UPDATE bank_solvd.DEBIT_CARD
+        SET EXPIRATION_DATE = #{expirationDate} , SECURITY_CODE = #{securityCode}, PROVIDER = #{provider}
+        WHERE DEBIT_CARD_ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM bank_solvd.DEBIT_CARD
+        WHERE DEBIT_CARD_ID = #{id}
+    </delete>
+
+    <resultMap id="debitCardResultMap" type="com.solvd.laba.models.DebitCard" autoMapping="false">
         <id column="DEBIT_CARD_ID" property="id"/>
-        <result column="EXPIRATION_DATE" property="expiration_date"/>
-        <result column="SECURITY_CODE" property="security_code"/>
+        <result column="EXPIRATION_DATE" property="expirationDate"/>
+        <result column="SECURITY_CODE" property="securityCode"/>
         <result column="PROVIDER" property="provider"/>
     </resultMap>
 

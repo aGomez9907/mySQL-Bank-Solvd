@@ -1,9 +1,7 @@
 package com.solvd.laba.controller;
 
 import com.solvd.laba.dao.ICreditSummaryDAO;
-import com.solvd.laba.models.CheckingAccount;
 import com.solvd.laba.models.CreditSummary;
-import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,7 +12,7 @@ import java.util.List;
 public class MySQLCreditSummaryDAO extends MySQLDAO implements ICreditSummaryDAO {
 
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String CREDIT_SUMMARY_BY_CLIENT_ID = "SELECT * FROM CREDIT_SUMMARY INNER JOIN bank_solvd.CLIENT ON CREDIT_SUMMARY.CREDIT_SUMMARY_ID = CLIENT.CREDIT_SUMMARY_ID WHERE CLIENT_ID = ?";
+    private final static String CREDIT_SUMMARY_BY_CLIENT_ID = "SELECT * FROM bank_solvd.CREDIT_SUMMARY INNER JOIN bank_solvd.CLIENT ON CREDIT_SUMMARY.CREDIT_SUMMARY_ID = CLIENT.CREDIT_SUMMARY_ID WHERE CLIENT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.CREDIT_SUMMARY (SALARY, PATRIMONY, CREDIT_TAKEN) VALUES (?, ?, ?)";
     final String UPDATE = "UPDATE bank_solvd.CREDIT_SUMMARY SET SALARY = ?, PATRIMONY = ?, CREDIT_TAKEN = ? WHERE CREDIT_SUMMARY_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.CREDIT_SUMMARY WHERE CREDIT_SUMMARY_ID = ?";

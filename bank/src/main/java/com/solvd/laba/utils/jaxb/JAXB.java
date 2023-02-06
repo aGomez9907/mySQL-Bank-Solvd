@@ -21,8 +21,6 @@ import java.util.ArrayList;
 public class JAXB {
     public static final String OFFICE_PATH = "src/main/resources/xml/BankBranchOffice.xml";
     public static final String OFFICE_MARSHAL_PATH = "src/main/resources/xml/BankBranchOffice_MARSHAL.xml";
-    public static final String ASSISTANTS_PATH = "../laboratory/src/main/resources/eXtensibles/assistant/assistants.xml";
-    public static final String RESEARCHES_PATH = "../laboratory/src/main/resources/eXtensibles/research/researches.xml";
     private final static Logger LOGGER = LogManager.getLogger();
 
     public static BankBranchOffice unmarshall() throws JAXBException, IOException {

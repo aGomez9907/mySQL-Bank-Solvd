@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 
-<BANK_BRANCH_OFFICE OFFICE_ID="1">
-    <ADDRESS>nicora st. 123</ADDRESS>
-    <COUNTRY>argentina</COUNTRY>
-    <GENERAL_BALANCE>12345</GENERAL_BALANCE>
-    <ATMS>
-        <ATM ATM_ID="1">
-            <BALANCE>11111</BALANCE>
-        </ATM>
-        <ATM ATM_ID="2">
-            <BALANCE>22222</BALANCE>
-        </ATM>
-        <ATM ATM_ID="3">
-            <BALANCE>333333</BALANCE>
-        </ATM>
-    </ATMS>
-</BANK_BRANCH_OFFICE>
+<Bank_Branch_Office OFFICE_ID="1">
+    <Address>nicora st. 123</Address>
+    <Country>argentina</Country>
+    <General_Balance>12345</General_Balance>
+    <Atms>
+        <Atm ATM_ID="1">
+            <Balance>11111</Balance>
+        </Atm>
+        <Atm ATM_ID="2">
+            <Balance>22222</Balance>
+        </Atm>
+        <Atm ATM_ID="3">
+            <Balance>333333</Balance>
+        </Atm>
+    </Atms>
+</Bank_Branch_Office>

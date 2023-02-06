@@ -33,8 +33,10 @@ public class JSON {
 
 
         marshall(mapper, office, PATH);
-        unmarshall(mapper, BankBranchOffice.class, PATH);
+        BankBranchOffice office1 = (BankBranchOffice) unmarshall(mapper, BankBranchOffice.class, PATH);
 
+        LOGGER.info(office1.toString());
+        
     }
 
     static void marshall(ObjectMapper objMap, Object obj, String path) {

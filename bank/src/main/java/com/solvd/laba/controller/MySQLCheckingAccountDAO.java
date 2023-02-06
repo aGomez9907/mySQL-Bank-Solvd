@@ -13,12 +13,11 @@ public class MySQLCheckingAccountDAO extends MySQLDAO implements ICheckingAccoun
 
     private final static Logger LOGGER = LogManager.getLogger();
     final String INSERT = "INSERT INTO bank_solvd.CHECKING_ACCOUNT (CHECKS, BALANCE, CREDIT_CARD_ID, DEBIT_CARD_ID) VALUES (?, ?, ?, ?)";
-
     final String UPDATE = "UPDATE bank_solvd.CHECKING_ACCOUNT SET CHECKS = ?, BALANCE = ?, CREDIT_CARD_ID = ?, DEBIT_CARD_ID = ? WHERE CHECKING_ACCOUNT_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.CHECKING_ACCOUNT WHERE CHECKING_ACCOUNT_ID = ?";
     final String SELECT_ONE = "SELECT * FROM bank_solvd.CHECKING_ACCOUNT WHERE CHECKING_ACCOUNT_ID = ?";
     final String SELECT_ALL = "SELECT * FROM bank_solvd.CHECKING_ACCOUNT";
-    private final String CHECKING_BY_CLIENT_ID = "SELECT * FROM CHECKING_ACCOUNT INNER JOIN bank_solvd.CLIENT ON CHECKING_ACCOUNT.CHECKING_ACCOUNT_ID = CLIENT.CHECKING_ACCOUNT_ID WHERE CLIENT_ID = ?";
+    private final String CHECKING_BY_CLIENT_ID = "SELECT * FROM bank_solvd.CHECKING_ACCOUNT INNER JOIN bank_solvd.CLIENT ON CHECKING_ACCOUNT.CHECKING_ACCOUNT_ID = CLIENT.CHECKING_ACCOUNT_ID WHERE CLIENT_ID = ?";
 
 
     public MySQLCheckingAccountDAO() throws SQLException {
@@ -47,7 +46,6 @@ public class MySQLCheckingAccountDAO extends MySQLDAO implements ICheckingAccoun
     public void insert(CheckingAccount a) {
         try (Connection conn = MySQLDAO.getConnection()
              ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
-
             stat.setInt(1, a.getChecks());
             stat.setDouble(2, a.getBalance());
             if (a.getCreditCard().getId() != 0)

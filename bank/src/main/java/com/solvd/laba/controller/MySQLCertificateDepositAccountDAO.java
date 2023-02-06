@@ -1,9 +1,7 @@
 package com.solvd.laba.controller;
 
 import com.solvd.laba.dao.ICertificateDepositAccountDAO;
-import com.solvd.laba.models.BankBranchOffice;
 import com.solvd.laba.models.CertificateDepositAccount;
-import com.solvd.laba.utils.ConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +11,7 @@ import java.util.List;
 
 public class MySQLCertificateDepositAccountDAO extends MySQLDAO implements ICertificateDepositAccountDAO {
     private final static Logger LOGGER = LogManager.getLogger();
-    private final static String CERTIFICATE_BY_CLIENT_ID = "SELECT * FROM CERTIFICATE_DEPOSIT_ACCOUNT INNER JOIN bank_solvd.CLIENT ON CERTIFICATE_DEPOSIT_ACCOUNT.CERTIFICATE_DEPOSIT_ACCOUNT_ID = CLIENT.CERTIFICATE_DEPOSIT_ACCOUNT_ID WHERE CLIENT_ID = ?";
+    private final static String CERTIFICATE_BY_CLIENT_ID = "SELECT * FROM bank_solvd.CERTIFICATE_DEPOSIT_ACCOUNT INNER JOIN bank_solvd.CLIENT ON CERTIFICATE_DEPOSIT_ACCOUNT.CERTIFICATE_DEPOSIT_ACCOUNT_ID = CLIENT.CERTIFICATE_DEPOSIT_ACCOUNT_ID WHERE CLIENT_ID = ?";
     final String INSERT = "INSERT INTO bank_solvd.CERTIFICATE_DEPOSIT_ACCOUNT (START_DATE, FINISH_DATE, INTEREST_RATE, BALANCE) VALUES (?, ?, ?, ?)";
     final String UPDATE = "UPDATE bank_solvd.CERTIFICATE_DEPOSIT_ACCOUNT SET START_DATE = ?, FINISH_DATE = ?, INTEREST_RATE = ?, BALANCE = ? WHERE CERTIFICATE_DEPOSIT_ACCOUNT_ID = ?";
     final String DELETE = "DELETE FROM bank_solvd.CERTIFICATE_DEPOSIT_ACCOUNT WHERE CERTIFICATE_DEPOSIT_ACCOUNT_ID = ?";

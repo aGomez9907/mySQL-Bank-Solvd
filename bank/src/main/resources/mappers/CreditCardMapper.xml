@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.laba.dao.ICreditCardDAO">
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bank_solvd.CREDIT_CARD (LIMIT_IN_1_DUE, LIMIT_IN_DUES, EXPIRATION_DATE, SECURITY_CODE, PROVIDER) "
+        VALUES (#{limitInOneDue}, #{limitInDues}, #{expirationDate}, #{securityCode}, #{provider})
+    </insert>
+
+
+    <select id="getCreditCardByCheckingAccountId" resultMap="creditCardResultMap">
+        SELECT *
+        FROM bank_solvd.CREDIT_CARD
+        INNER JOIN bank_solvd.CHECKING_ACCOUNT
+        ON CREDIT_CARD.CREDIT_CARD_ID = CHECKING_ACCOUNT.CREDIT_CARD_ID
+        WHERE CHECKING_ACCOUNT_ID = #{id}
+    </select>
+
+
+    <select id="selectOne" resultMap="creditCardResultMap">
+        SELECT *
+        FROM bank_solvd.CREDIT_CARD
+        WHERE CREDIT_CARD_ID = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="creditCardResultMap">
+        SELECT *
+        FROM bank_solvd.CREDIT_CARD
+    </select>
+
+    <update id="update" parameterType="com.solvd.laba.models.CreditCard">
+        UPDATE bank_solvd.CREDIT_CARD
+        SET LIMIT_IN_1_DUE = #{limitInOneDue},LIMIT_IN_DUES = #{limitInDues} ,EXPIRATION_DATE = #{expirationDate} ,
+        SECURITY_CODE = #{securityCode}, PROVIDER = #{provider}
+        WHERE CREDIT_CARD_ID = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM bank_solvd.CREDIT_CARD
+        WHERE CREDIT_CARD_ID = #{id}
+    </delete>
+
+    <resultMap id="creditCardResultMap" type="com.solvd.laba.models.CreditCard" autoMapping="false">
+        <id column="CREDIT_CARD_ID" property="id"/>
+        <result column="LIMIT_IN_1_DUE" property="limitInOneDue"/>
+        <result column="LIMIT_IN_DUES" property="limitInDues"/>
+        <result column="EXPIRATION_DATE" property="expirationDate"/>
+        <result column="SECURITY_CODE" property="securityCode"/>
+        <result column="PROVIDER" property="provider"/>
+    </resultMap>
+
+</mapper>
