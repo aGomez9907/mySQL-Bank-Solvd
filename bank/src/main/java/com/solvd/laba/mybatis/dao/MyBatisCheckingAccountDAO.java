@@ -2,7 +2,7 @@ package com.solvd.laba.mybatis.dao;
 
 import com.solvd.laba.dao.ICheckingAccountDAO;
 import com.solvd.laba.models.CheckingAccount;
-import com.solvd.laba.mybatis.DAOFactory;
+import com.solvd.laba.mybatis.MyBatisDAOFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MyBatisCheckingAccountDAO {
     private final static Logger LOGGER = LogManager.getLogger();
-    private static final SqlSessionFactory FACTORY = DAOFactory.getSqlSessionFactory();
+    private static final SqlSessionFactory FACTORY = MyBatisDAOFactory.getSqlSessionFactory();
 
     public CheckingAccount getCheckingAccountByClientId(int id) {
         CheckingAccount checkingAccount = null;

@@ -3,20 +3,18 @@ package com.solvd.laba.mybatis.dao;
 
 import com.solvd.laba.dao.IDebitCardDAO;
 import com.solvd.laba.models.DebitCard;
-import com.solvd.laba.mybatis.DAOFactory;
+import com.solvd.laba.mybatis.MyBatisDAOFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 
-import java.sql.SQLException;
-
 import java.util.List;
 
-public class MyBatisDebitCardDAO {
+public class MyBatisDebitCardDAO implements IDebitCardDAO {
     private final static Logger LOGGER = LogManager.getLogger();
-    private static final SqlSessionFactory FACTORY = DAOFactory.getSqlSessionFactory();
+    private static final SqlSessionFactory FACTORY = MyBatisDAOFactory.getSqlSessionFactory();
 
     public DebitCard getDebitCardByCheckingAccountId(int id) {
         DebitCard debitCard = null;
@@ -40,7 +38,7 @@ public class MyBatisDebitCardDAO {
         return debitCard;
     }
 
-    public DebitCard delete(DebitCard dc) throws SQLException {
+    public DebitCard delete(DebitCard dc) {
         LOGGER.info("Deleting debit card");
         try (SqlSession session = FACTORY.openSession()) {
             IDebitCardDAO debitCardDAO = session.getMapper(IDebitCardDAO.class);
@@ -57,7 +55,7 @@ public class MyBatisDebitCardDAO {
         return dc;
     }
 
-    public DebitCard insert(DebitCard dc) throws SQLException {
+    public DebitCard insert(DebitCard dc) {
         LOGGER.info("Creating debit card");
         try (SqlSession session = FACTORY.openSession()) {
             IDebitCardDAO debitCardDAO = session.getMapper(IDebitCardDAO.class);
@@ -74,7 +72,7 @@ public class MyBatisDebitCardDAO {
         return dc;
     }
 
-    public DebitCard update(DebitCard dc) throws SQLException {
+    public DebitCard update(DebitCard dc) {
         LOGGER.info("Updating debit card");
         try (SqlSession session = FACTORY.openSession()) {
             IDebitCardDAO debitCardDAO = session.getMapper(IDebitCardDAO.class);

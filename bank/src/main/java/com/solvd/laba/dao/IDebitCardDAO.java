@@ -4,13 +4,13 @@ import com.solvd.laba.models.DebitCard;
 
 import java.util.List;
 
-public interface IDebitCardDAO extends IGenericDAO<DebitCard> {
+public interface IDebitCardDAO {
 
-    void insert(DebitCard t);
+    DebitCard insert(DebitCard t);
 
-    void update(DebitCard t);
+    DebitCard update(DebitCard t);
 
-    void delete(DebitCard t);
+    DebitCard delete(DebitCard t);
 
     DebitCard selectOne(int id);
 

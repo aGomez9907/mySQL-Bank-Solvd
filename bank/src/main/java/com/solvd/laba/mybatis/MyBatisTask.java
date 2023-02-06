@@ -12,19 +12,19 @@ public class MyBatisTask {
     private final static Logger LOGGER = LogManager.getLogger();
 
     public static void main(String[] args) throws SQLException {
-        MyBatisDebitCardDAO debitService = new MyBatisDebitCardDAO();
+        MyBatisDebitCardDAO debitDAO = new MyBatisDebitCardDAO();
 
-        DebitCard dc = new DebitCard("10/10/2023", 123, "Visa");
-        DebitCard dc1 = debitService.insert(dc);
-        LOGGER.info(dc1.toString());
+        //DebitCard dc = new DebitCard("10/10/2023", 123, "Visa");
+        //DebitCard dc1 = debitDAO.insert(dc);
+        //LOGGER.info(dc1.toString());
 
 //        dc1.setProvider("Mastercard");
-//        debitService.update(dc1);
-//        LOGGER.info(debitService.selectOne(dc1.getId()));
-        debitService.selectAll();
-        debitService.delete(dc1);
+//        debitDAO.update(dc1);
+//        LOGGER.info(debitDAO.selectOne(dc1.getId()));
+        //debitDAO.selectAll();
+        //debitDAO.delete(dc1);
 
-        debitService.selectAll();
+        debitDAO.selectOne(3);
 
     }
 }

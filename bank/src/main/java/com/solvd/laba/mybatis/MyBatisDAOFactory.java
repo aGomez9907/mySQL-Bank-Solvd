@@ -9,12 +9,13 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.Reader;
 
-public class DAOFactory {
+public class MyBatisDAOFactory {
 
-    private final static Logger log = LogManager.getLogger(DAOFactory.class);
+    private final static Logger log = LogManager.getLogger(MyBatisDAOFactory.class);
+    private final static MyBatisDAOFactory myBatisDaoFactory = new MyBatisDAOFactory();
     private static SqlSessionFactory sqlSessionFactory;
 
-    private DAOFactory() {
+    private MyBatisDAOFactory() {
         try {
             Reader reader = Resources.getResourceAsReader("mybatis_cfg.xml");
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);

@@ -48,7 +48,7 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
     }
 
     @Override
-    public void insert(DebitCard a) {
+    public DebitCard insert(DebitCard a) {
         try (Connection conn = MySQLDAO.getConnection()
              ; PreparedStatement stat = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS)) {
             stat.setString(1, a.getExpirationDate());
@@ -63,10 +63,11 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
+        return a;
     }
 
     @Override
-    public void update(DebitCard a) {
+    public DebitCard update(DebitCard a) {
         LOGGER.info("Updating debit card with id " + a.getId() + ".");
         try (Connection conn = MySQLDAO.getConnection()
              ; PreparedStatement stat = conn.prepareStatement(UPDATE)) {
@@ -78,10 +79,11 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
+        return a;
     }
 
     @Override
-    public void delete(DebitCard a) {
+    public DebitCard delete(DebitCard a) {
         LOGGER.info("Deleting debit card with id " + a.getId() + ".");
         try (Connection conn = MySQLDAO.getConnection()
              ; PreparedStatement stat = conn.prepareStatement(DELETE)) {
@@ -90,6 +92,7 @@ public class MySQLDebitCardDAO extends MySQLDAO implements IDebitCardDAO {
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         }
+        return a;
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.solvd.laba.mybatis.dao;
 
 import com.solvd.laba.dao.ICreditCardDAO;
 import com.solvd.laba.models.CreditCard;
-import com.solvd.laba.mybatis.DAOFactory;
+import com.solvd.laba.mybatis.MyBatisDAOFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MyBatisCreditCardDAO {
     private final static Logger LOGGER = LogManager.getLogger();
-    private static final SqlSessionFactory FACTORY = DAOFactory.getSqlSessionFactory();
+    private static final SqlSessionFactory FACTORY = MyBatisDAOFactory.getSqlSessionFactory();
 
     public CreditCard getCreditCardByCheckingAccountId(int id) {
         CreditCard creditCard = null;
