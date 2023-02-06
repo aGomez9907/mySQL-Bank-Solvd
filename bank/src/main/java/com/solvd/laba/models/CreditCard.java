@@ -1,8 +1,7 @@
 package com.solvd.laba.models;
 
-import com.solvd.laba.models.interfaces.ICard;
 
-public class CreditCard implements ICard {
+public class CreditCard {
     private int id;
     private int limitInOneDue;
     private int limitInDues;
