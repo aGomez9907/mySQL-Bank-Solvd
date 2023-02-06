@@ -1,6 +1,7 @@
 package com.solvd.laba.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.solvd.laba.models.interfaces.ICard;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -10,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "DEBIT_CARD")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class DebitCard {
+public class DebitCard implements ICard {
     @JsonProperty("DEBIT_CARD_ID")
     @XmlElement(name = "DEBIT_CARD_ID")
     private int id;
