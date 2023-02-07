@@ -19,5 +19,7 @@
     </environments>
     <mappers>
         <mapper resource="mappers/DebitCardMapper.xml"/>
+        <mapper resource="mappers/CheckingAccountMapper.xml"/>
+        <mapper resource="mappers/CreditCardMapper.xml"/>
     </mappers>
 </configuration>
