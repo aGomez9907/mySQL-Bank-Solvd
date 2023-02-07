@@ -27,7 +27,6 @@ public class BankBranchOffice {
     private String country;
 
     @JsonManagedReference
-
     private ArrayList<ATM> atms;
 
 

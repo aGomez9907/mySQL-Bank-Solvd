@@ -49,8 +49,8 @@ public class JAXB {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(office, file2);
 
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            BankBranchOffice office1 = (BankBranchOffice) jaxbUnmarshaller.unmarshal(Files.newInputStream(Paths.get(OFFICE_PATH)));
+            Unmarshaller jaxbUnmarshal = jaxbContext.createUnmarshaller();
+            BankBranchOffice office1 = (BankBranchOffice) jaxbUnmarshal.unmarshal(Files.newInputStream(Paths.get(OFFICE_PATH)));
             LOGGER.info("\n");
             LOGGER.info(office1.toString());
 
