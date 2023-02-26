@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class JSON {
     private static final Logger LOGGER = LogManager.getLogger();
@@ -35,8 +36,9 @@ public class JSON {
         marshall(mapper, office, PATH);
         BankBranchOffice office1 = (BankBranchOffice) unmarshall(mapper, BankBranchOffice.class, PATH);
 
-        LOGGER.info(office1.toString());
-        
+        assert office1 != null;
+        LOGGER.info(Objects.requireNonNull(office1).toString());
+
     }
 
     static void marshall(ObjectMapper objMap, Object obj, String path) {
