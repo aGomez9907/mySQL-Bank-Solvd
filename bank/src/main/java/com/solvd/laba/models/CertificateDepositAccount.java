@@ -1,6 +1,5 @@
 package com.solvd.laba.models;
 
-import java.sql.Date;
 
 public class CertificateDepositAccount {
     private int id;

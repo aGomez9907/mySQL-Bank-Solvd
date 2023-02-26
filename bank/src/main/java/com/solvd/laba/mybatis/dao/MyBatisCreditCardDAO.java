@@ -92,8 +92,7 @@ public class MyBatisCreditCardDAO {
     public List<CreditCard> selectAll() {
         try (SqlSession session = FACTORY.openSession()) {
             ICreditCardDAO creditCardDAO = session.getMapper(ICreditCardDAO.class);
-            List<CreditCard> creditCards = creditCardDAO.selectAll();
-            return creditCards;
+            return creditCardDAO.selectAll();
         }
     }
 }

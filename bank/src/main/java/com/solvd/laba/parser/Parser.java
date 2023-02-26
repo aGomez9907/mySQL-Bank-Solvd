@@ -1,6 +1,6 @@
 package com.solvd.laba.parser;
 
-import com.solvd.laba.models.Client;
+
 import com.solvd.laba.models.CreditSummary;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

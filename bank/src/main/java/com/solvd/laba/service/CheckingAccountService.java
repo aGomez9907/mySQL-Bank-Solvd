@@ -3,15 +3,14 @@ package com.solvd.laba.service;
 import com.solvd.laba.controller.MySQLCheckingAccountDAO;
 import com.solvd.laba.controller.MySQLCreditCardDAO;
 import com.solvd.laba.controller.MySQLDebitCardDAO;
-import com.solvd.laba.models.*;
 import com.solvd.laba.models.CheckingAccount;
 
 import java.sql.SQLException;
 
 public class CheckingAccountService {
-    private MySQLCheckingAccountDAO checkingAccountDAO = new MySQLCheckingAccountDAO();
-    private MySQLCreditCardDAO creditCardDAO;
-    private MySQLDebitCardDAO debitCardDAO;
+    private final MySQLCheckingAccountDAO checkingAccountDAO = new MySQLCheckingAccountDAO();
+    private final MySQLCreditCardDAO creditCardDAO;
+    private final MySQLDebitCardDAO debitCardDAO;
 
     public CheckingAccountService() throws SQLException {
         this.creditCardDAO = new MySQLCreditCardDAO();

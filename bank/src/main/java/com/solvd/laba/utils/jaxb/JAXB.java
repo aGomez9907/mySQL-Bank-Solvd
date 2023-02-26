@@ -40,7 +40,6 @@ public class JAXB {
         office.setAtms(atms);
 
         try {
-            File file = new File(OFFICE_PATH);
             File file2 = new File(OFFICE_MARSHAL_PATH);
 
             JAXBContext jaxbContext = JAXBContext.newInstance(BankBranchOffice.class);

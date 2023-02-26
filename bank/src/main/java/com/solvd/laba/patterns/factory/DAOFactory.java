@@ -6,6 +6,8 @@ import com.solvd.laba.mybatis.dao.MyBatisDebitCardDAO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Objects;
+
 public class DAOFactory {
 
 
@@ -16,7 +18,7 @@ public class DAOFactory {
             if (daoType == null) {
                 LOGGER.info("No DAO type declared.");
             }
-            switch (daoType) {
+            switch (Objects.requireNonNull(daoType)) {
                 case JDBC:
                     return new MySQLDebitCardDAO();
                 case MYBATIS:

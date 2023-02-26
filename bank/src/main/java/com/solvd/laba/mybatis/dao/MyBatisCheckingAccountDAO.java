@@ -91,8 +91,7 @@ public class MyBatisCheckingAccountDAO {
     public List<CheckingAccount> selectAll() {
         try (SqlSession session = FACTORY.openSession()) {
             ICheckingAccountDAO checkingAccountDAO = session.getMapper(ICheckingAccountDAO.class);
-            List<CheckingAccount> checkingAccounts = checkingAccountDAO.selectAll();
-            return checkingAccounts;
+            return checkingAccountDAO.selectAll();
         }
     }
 }

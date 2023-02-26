@@ -92,8 +92,7 @@ public class MyBatisDebitCardDAO implements IDebitCardDAO {
     public List<DebitCard> selectAll() {
         try (SqlSession session = FACTORY.openSession()) {
             IDebitCardDAO debitCardDAO = session.getMapper(IDebitCardDAO.class);
-            List<DebitCard> debitCards = debitCardDAO.selectAll();
-            return debitCards;
+            return debitCardDAO.selectAll();
         }
     }
 }

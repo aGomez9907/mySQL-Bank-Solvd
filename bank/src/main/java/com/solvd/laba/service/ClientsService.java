@@ -6,13 +6,13 @@ import com.solvd.laba.models.Client;
 import java.sql.SQLException;
 
 public class ClientsService {
-    private MySQLClientDAO clientDAO = new MySQLClientDAO();
-    private OfficeService officeService;
-    private MySQLCertificateDepositAccountDAO certificateDepositAccountDAO;
-    private CheckingAccountService checkingAccountService;
-    private MySQLCreditSummaryDAO creditSummaryDAO;
-    private MySQLSavingAccountDAO savingAccountDAO;
-    private MySQLHomeBankingDAO homeBankingDAO;
+    private final MySQLClientDAO clientDAO = new MySQLClientDAO();
+    private final OfficeService officeService;
+    private final MySQLCertificateDepositAccountDAO certificateDepositAccountDAO;
+    private final CheckingAccountService checkingAccountService;
+    private final MySQLCreditSummaryDAO creditSummaryDAO;
+    private final MySQLSavingAccountDAO savingAccountDAO;
+    private final MySQLHomeBankingDAO homeBankingDAO;
 
     public ClientsService() throws SQLException {
         this.certificateDepositAccountDAO = new MySQLCertificateDepositAccountDAO();
